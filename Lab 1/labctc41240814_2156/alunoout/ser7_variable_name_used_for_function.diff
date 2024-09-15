@@ -1,0 +1,64 @@
+2a3
+> 1: int funOne(void) {
+8a10
+> 2:     output(1);
+13a16
+> 3: }
+14a18,19
+> 4: 
+> 5: int xyz(void) {
+20a26
+> 6:     int x;
+23a30
+> 7:     int y;
+26a34
+> 8:     int z;
+29a38
+> 9: }
+30a40,41
+> 10: 
+> 11: void main(void)
+35a47
+> 12: {
+36a49
+> 13:     int a;
+39a53
+> 14:     int xyz;
+42a57
+> 15: }
+44a60,94
+> 
+> Syntax tree:
+> Declare function (return type "int"): funOne
+>     Function call: output
+>         Const: 1
+> Declare function (return type "int"): xyz
+>     Declare int var: x
+>     Declare int var: y
+>     Declare int var: z
+> Declare function (return type "void"): main
+>     Declare int var: a
+>     Declare int var: xyz
+> 
+> Building Symbol Table...
+> Semantic error at line 14: 'xyz' was already declared as a function
+> 
+> Symbol table:
+> 
+> Variable Name  Scope     ID Type  Data Type  Line Numbers
+> -------------  --------  -------  ---------  -------------------------
+> a              main      var      int        13 
+> main                     fun      void       11 
+> y              xyz       var      int         7 
+> xyz                      fun      int         5 
+> input                    fun      int        
+> funOne                   fun      int         1 
+> output                   fun      void        2 
+> z              xyz       var      int         8 
+> x              xyz       var      int         6 
+> 
+> Checking Types...
+> 
+> Type Checking Finished
+> 
+> Checking for main...

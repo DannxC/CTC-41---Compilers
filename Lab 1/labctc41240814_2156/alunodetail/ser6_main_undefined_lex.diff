@@ -1,0 +1,20 @@
+0a1
+> 1: int funOne(void) { 
+6a8
+> 2:     output(1);
+11a14
+> 3: }
+12a16,17
+> 4: 
+> 5: int funTwo(void) {
+18a24
+> 6:     output(2);
+23a30
+> 7: }
+24a32,33
+> 8: 
+> 9: int funThree(void) {
+30a40
+> 10:     output(3);
+35a46
+> 11: }

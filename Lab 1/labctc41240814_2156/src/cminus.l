@@ -23,7 +23,7 @@ digit       [0-9]
 letter      [a-zA-Z]
 identifier  {letter}{letter}*
 number      {digit}+
-newline     \n
+newline     \n|\r\n
 whitespace  [ \t]+
 
 %%
@@ -66,7 +66,7 @@ whitespace  [ \t]+
 {whitespace}    { /* Ignora espaços em branco */ }
 {newline}       { printLine(); /* Não incrementa lineno aqui */ }
 
-.                { strcpy(tokenString, yytext); return ERROR;}
+.               { strcpy(tokenString, yytext); return ERROR;}
 
 %%
 TokenType getToken(void)

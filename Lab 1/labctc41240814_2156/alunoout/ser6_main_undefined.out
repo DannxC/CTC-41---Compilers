@@ -1,0 +1,39 @@
+
+TINY COMPILATION: ../example/ser6_main_undefined.cm
+	1: reserved word: int
+	1: ID, name= funOne
+	1: (
+	1: reserved word: void
+	1: )
+	1: {
+	2: ID, name= output
+	2: (
+	2: NUM, val= 1
+	2: )
+	2: ;
+	3: }
+	5: reserved word: int
+	5: ID, name= funTwo
+	5: (
+	5: reserved word: void
+	5: )
+	5: {
+	6: ID, name= output
+	6: (
+	6: NUM, val= 2
+	6: )
+	6: ;
+	7: }
+	9: reserved word: int
+	9: ID, name= funThree
+	9: (
+	9: reserved word: void
+	9: )
+	9: {
+	10: ID, name= output
+	10: (
+	10: NUM, val= 3
+	10: )
+	10: ;
+	11: }
+	11: EOF

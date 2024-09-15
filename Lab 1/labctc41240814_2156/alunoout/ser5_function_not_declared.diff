@@ -1,0 +1,57 @@
+2a3
+> 1: int funOne(void) {
+8a10
+> 2:     output(1);
+13a16
+> 3: }
+14a18,19
+> 4: 
+> 5: int funTwo(void) {
+20a26
+> 6:     output(2);
+25a32
+> 7: }
+26a34,35
+> 8: 
+> 9: void main(void)
+31a41
+> 10: {
+32a43
+> 11:     int a;
+35a47
+> 12:     a = fun();
+41a54
+> 13: }
+43a57,88
+> 
+> Syntax tree:
+> Declare function (return type "int"): funOne
+>     Function call: output
+>         Const: 1
+> Declare function (return type "int"): funTwo
+>     Function call: output
+>         Const: 2
+> Declare function (return type "void"): main
+>     Declare int var: a
+>     Assign to var: a
+>         Function call: fun
+> 
+> Building Symbol Table...
+> Semantic error at line 12: 'fun' was not declared in this scope
+> 
+> Symbol table:
+> 
+> Variable Name  Scope     ID Type  Data Type  Line Numbers
+> -------------  --------  -------  ---------  -------------------------
+> a              main      var      int        11 12 
+> main                     fun      void        9 
+> funTwo                   fun      int         5 
+> input                    fun      int        
+> funOne                   fun      int         1 
+> output                   fun      void        2  6 
+> 
+> Checking Types...
+> 
+> Type Checking Finished
+> 
+> Checking for main...
