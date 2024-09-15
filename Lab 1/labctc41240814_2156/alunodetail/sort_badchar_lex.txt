@@ -1,0 +1,288 @@
+	1: /* ordenacao por selecao */
+	1: ERROR: 
+	2: reserved word: int
+	2: ID, name= x
+	2: [
+	2: NUM, val= 10
+	2: ]
+	2: ;
+	2: ERROR: 
+	3: ERROR: 
+	4: reserved word: int
+	4: ID, name= minloc
+	4: (
+	4: reserved word: int
+	4: ID, name= a
+	4: [
+	4: ]
+	4: ,
+	4: reserved word: int
+	4: ID, name= low
+	4: ,
+	4: reserved word: int
+	4: ID, name= high
+	4: )
+	4: {
+	4: ERROR: 
+	5: reserved word: int
+	5: ID, name= i
+	5: ;
+	5: reserved word: int
+	5: ID, name= x
+	5: ;
+	5: reserved word: int
+	5: ID, name= k
+	5: ;
+	5: ERROR: 
+	6: ID, name= k
+	6: =
+	6: ID, name= low
+	6: ;
+	6: ERROR: 
+	7: ID, name= x
+	7: =
+	7: ID, name= a
+	7: [
+	7: ID, name= low
+	7: ]
+	7: ;
+	7: ERROR: 
+	8: ID, name= i
+	8: =
+	8: ID, name= low
+	8: +
+	8: NUM, val= 1
+	8: ;
+	8: ERROR: 
+	9: reserved word: while
+	9: (
+	9: ID, name= i
+	9: <
+	9: ID, name= high
+	9: )
+	9: {
+	9: ERROR: 
+	10: reserved word: if
+	10: (
+	10: ID, name= a
+	10: [
+	10: ID, name= i
+	10: ]
+	10: <
+	10: ID, name= x
+	10: )
+	10: {
+	10: ERROR: 
+	11: ID, name= x
+	11: =
+	11: ID, name= a
+	11: [
+	11: ID, name= i
+	11: ]
+	11: ;
+	11: ERROR: 
+	12: ID, name= k
+	12: =
+	12: ID, name= i
+	12: ;
+	12: ERROR: 
+	13: }
+	13: ERROR: 
+	14: ID, name= i
+	14: =
+	14: ID, name= i
+	14: +
+	14: NUM, val= 1
+	14: ;
+	14: ERROR: 
+	15: }
+	15: ERROR: 
+	16: reserved word: return
+	16: ID, name= k
+	16: ;
+	16: ERROR: 
+	17: }
+	17: ERROR: 
+	18: ERROR: 
+	19: reserved word: void
+	19: ID, name= sort
+	19: (
+	19: reserved word: int
+	19: ID, name= a
+	19: [
+	19: ]
+	19: ,
+	19: reserved word: int
+	19: ID, name= low
+	19: ,
+	19: reserved word: int
+	19: ID, name= high
+	19: )
+	19: {
+	19: ERROR: 
+	20: reserved word: int
+	20: ID, name= i
+	20: ;
+	20: reserved word: int
+	20: ID, name= k
+	20: ;
+	20: ERROR: 
+	21: ID, name= i
+	21: =
+	21: ID, name= low
+	21: ;
+	21: ERROR: 
+	22: reserved word: while
+	22: (
+	22: ID, name= i
+	22: <
+	22: ID, name= high
+	22: ERROR: â
+	22: ERROR: €
+	22: ERROR: “
+	22: NUM, val= 1
+	22: )
+	22: {
+	22: ERROR: 
+	23: reserved word: int
+	23: ID, name= t
+	23: ;
+	23: ERROR: 
+	24: ID, name= k
+	24: =
+	24: ID, name= minloc
+	24: (
+	24: ID, name= a
+	24: ,
+	24: ID, name= i
+	24: ,
+	24: ID, name= high
+	24: )
+	24: ;
+	24: ERROR: 
+	25: ID, name= t
+	25: =
+	25: ID, name= a
+	25: [
+	25: ID, name= k
+	25: ]
+	25: ;
+	25: ERROR: 
+	26: ID, name= a
+	26: [
+	26: ID, name= k
+	26: ]
+	26: =
+	26: ID, name= a
+	26: [
+	26: ID, name= i
+	26: ]
+	26: ;
+	26: ERROR: 
+	27: ID, name= a
+	27: [
+	27: ID, name= i
+	27: ]
+	27: =
+	27: ID, name= t
+	27: ;
+	27: ERROR: 
+	28: ID, name= i
+	28: =
+	28: ID, name= i
+	28: +
+	28: NUM, val= 1
+	28: ;
+	28: ERROR: 
+	29: }
+	29: ERROR: 
+	30: }
+	30: ERROR: 
+	31: ERROR: 
+	32: reserved word: void
+	32: ID, name= main
+	32: (
+	32: reserved word: void
+	32: )
+	32: {
+	32: ERROR: 
+	33: reserved word: int
+	33: ID, name= i
+	33: ;
+	33: ERROR: 
+	34: ID, name= i
+	34: =
+	34: NUM, val= 0
+	34: ;
+	34: ERROR: 
+	35: reserved word: while
+	35: (
+	35: ID, name= i
+	35: <
+	35: NUM, val= 10
+	35: )
+	35: {
+	35: ERROR: 
+	36: ID, name= x
+	36: [
+	36: ID, name= i
+	36: ]
+	36: =
+	36: ID, name= input
+	36: (
+	36: )
+	36: ;
+	36: ERROR: 
+	37: ID, name= i
+	37: =
+	37: ID, name= i
+	37: +
+	37: NUM, val= 1
+	37: ;
+	37: ERROR: 
+	38: }
+	38: ERROR: 
+	39: ID, name= sort
+	39: (
+	39: ID, name= x
+	39: ,
+	39: NUM, val= 0
+	39: ,
+	39: NUM, val= 10
+	39: )
+	39: ;
+	39: ERROR: 
+	40: ID, name= i
+	40: =
+	40: NUM, val= 0
+	40: ;
+	40: ERROR: 
+	41: reserved word: while
+	41: (
+	41: ID, name= i
+	41: <
+	41: NUM, val= 10
+	41: )
+	41: {
+	41: ERROR: 
+	42: ID, name= output
+	42: (
+	42: ID, name= x
+	42: [
+	42: ID, name= i
+	42: ]
+	42: )
+	42: ;
+	42: ERROR: 
+	43: ID, name= i
+	43: =
+	43: ID, name= i
+	43: +
+	43: NUM, val= 1
+	43: ;
+	43: ERROR: 
+	44: }
+	44: ERROR: 
+	45: }
+	45: ERROR: 
+	46: EOF
