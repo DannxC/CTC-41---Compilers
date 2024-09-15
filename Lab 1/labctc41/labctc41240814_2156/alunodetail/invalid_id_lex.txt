@@ -1,0 +1,22 @@
+	1: /* Program that uses a invalid id name */
+	3: reserved word: void
+	3: ID, name= main
+	3: (
+	3: reserved word: void
+	3: )
+	4: {
+	5: reserved word: int
+	5: ID, name= x
+	5: NUM, val= 1
+	5: =
+	5: NUM, val= 1
+	5: ;
+	5: /* numbers are not allowed in id name */
+	6: ID, name= output
+	6: (
+	6: ID, name= x
+	6: NUM, val= 1
+	6: )
+	6: ;
+	7: }
+	7: EOF

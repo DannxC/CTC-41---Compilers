@@ -1,0 +1,56 @@
+# Ignore arquivos temporários de edição
+*~
+*.tmp
+*.swp
+*.swo
+
+# Ignore diretórios de compilação
+build/
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+Makefile
+
+# Ignore arquivos de log e arquivos de saída
+*.out
+*.log
+*.diff
+
+# Ignore arquivos de backup e arquivos gerados automaticamente
+*.zip
+*.pdf
+*.docx
+*.mp4
+
+# Ignore diretórios do sistema e de IDEs
+.vscode/
+*.DS_Store
+
+# Ignore arquivos de documentação gerados pelo Doxygen
+dox/
+*.md5
+latex/
+html/
+
+# Ignore relatórios LaTeX gerados
+*.aux
+*.idx
+*.ilg
+*.ind
+*.log
+*.out
+*.toc
+
+# Ignore arquivos de resultados e testes de diffs e lexers
+*test_code*.txt
+*test_code*.diff
+*test_code*.tm
+
+# Ignore arquivos objetos gerados
+*.o
+*.c.o
+*.o.d
+
+# Ignore binários compilados
+mycmcomp
+tiny
