@@ -1,19 +1,9 @@
-3c3,5
-< 	1: /* Program that uses a invalid character */
----
-> 1: /* Program that uses a invalid character */
-> 2: 
-> 3: void main(void)
-8a11
-> 4: {
-9a13
-> 5:     int x@test = 99; /* @ is an illegal character */ 
-13,26c17,20
+17,31c17,20
 < 	5: ID, name= test
 < 	5: =
 < 	5: NUM, val= 99
 < 	5: ;
-< 	5: /* @ is an illegal character */
+< 6:     output(x@test);
 < 	6: ID, name= output
 < 	6: (
 < 	6: ID, name= x
@@ -21,6 +11,7 @@
 < 	6: ID, name= test
 < 	6: )
 < 	6: ;
+< 7: }
 < 	7: }
 < 	7: EOF
 ---

@@ -9,17 +9,22 @@
 #include "globals.h"
 #include "util.h"
 
-/* Declarar o ponteiro de arquivo redundante */
-extern FILE* redundant_source;
-
 /* Procedure printLine prints a full line
  * of the source code, with its number
  */
-void printLine(void) {
-    char line[BUFSIZ];
-    if (fgets(line, BUFSIZ - 1, redundant_source)) {
-        lineno++; // Incrementar aqui após imprimir a linha
-    }
+void printLine()
+{
+  char line[1024];
+  char *ret = fgets(line, 1024, redundant_source);
+  // If an error occurs, or if end-of-file is reached and no characters were read, fgets returns NULL.
+  if (ret)
+  {
+    pc("%d: %-1s", lineno, line);
+    // if EOF, the string does not contain \n. add it to separate from EOF token
+    if (feof(redundant_source))
+      pc("\n");
+  }
+  // lineno++;
 }
 
 /* Procedure printToken prints a token 
@@ -58,6 +63,7 @@ void printToken( TokenType token, const char* tokenString )
     case RBRACKET:  pc("]\n");        break;
     case SEMI:      pc(";\n");        break;
     case COMMA:     pc(",\n");        break;
+    
     case ENDFILE:   pc("EOF\n");      break;
 
     /* Tokens multicaracteres */
@@ -66,11 +72,6 @@ void printToken( TokenType token, const char* tokenString )
         break;
     case NUM:
         pc("NUM, val= %s\n", tokenString);
-        break;
-        
-    /* Comentários */
-    case COMMENT:
-        pc("%s\n", tokenString);
         break;
 
     /* Erro */

@@ -16,7 +16,6 @@
 #include "scan.h"
 /* lexeme of identifier or reserved word */
 char tokenString[MAXTOKENLEN+1];
-void printLine(void);
 %}
 
 digit       [0-9]
@@ -28,10 +27,22 @@ whitespace  [ \t]+
 
 %%
 
-"/*"([^*]|\*+[^*/])*\*+"/" { 
-    strcpy(tokenString, yytext);
-    return COMMENT;
-}
+"/*"        { 
+                char c;
+                while (1) {
+                    c = input();
+                    if (c == '*') {
+                        c = input();
+                        if (c == '/') {
+                            break;
+                        }
+                    }
+                    if (c == '\n') {
+                        lineno++;
+                        printLine();
+                    }
+                }
+            }
 
 "void"          { return VOID; }
 "int"           { return INT; }
@@ -60,13 +71,13 @@ whitespace  [ \t]+
 "["             { return LBRACKET; }
 "]"             { return RBRACKET; }
 
-{identifier}    { strcpy(tokenString, yytext); return ID; }
-{number}        { strcpy(tokenString, yytext); return NUM; }
+{identifier}    { return ID; }
+{number}        { return NUM; }
 
 {whitespace}    { /* Ignora espaços em branco */ }
-{newline}       { printLine(); /* Não incrementa lineno aqui */ }
+{newline}       { lineno++; printLine(); }
 
-.               { strcpy(tokenString, yytext); return ERROR;}
+.               { return ERROR;}
 
 %%
 TokenType getToken(void)
@@ -77,7 +88,8 @@ TokenType getToken(void)
   if (firstTime)
   {
       firstTime = FALSE;
-      lineno = 1;
+      lineno++;
+      printLine();
       yyin = source;
       yyout = listing;
   }

@@ -1,23 +1,4 @@
-2a3
-> 1: void exemplo(void)
-7a9
-> 2: { 
-8a11
-> 3:     output(3);  
-13a17
-> 4: }
-14a19,20
-> 5: 
-> 6: void main(void)
-19a26
-> 7: {
-20a28
-> 8:     int a;
-23a32
-> 9:     a = exemplo();
-29a39
-> 10: }
-31a42,69
+41a42,69
 > 
 > Syntax tree:
 > Declare function (return type "void"): exemplo

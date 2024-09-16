@@ -1,14 +1,4 @@
-2a3
-> 1: void exemplo(void)
-7a9
-> 2: {
-8a11
-> 3:     int a; a = 0;
-15a19
-> 4:     b = a;
-19a24
-> 5: }
-21a27,53
+26a27,53
 > 
 > Syntax tree:
 > Declare function (return type "void"): exemplo

@@ -1,28 +1,4 @@
-2a3
-> 1: int funOne(void) {
-8a10
-> 2:     output(1);
-13a16
-> 3: }
-14a18,19
-> 4: 
-> 5: int funTwo(void) {
-20a26
-> 6:     output(2);
-25a32
-> 7: }
-26a34,35
-> 8: 
-> 9: void main(void)
-31a41
-> 10: {
-32a43
-> 11:     int a;
-35a47
-> 12:     a = fun();
-41a54
-> 13: }
-43a57,88
+56a57,88
 > 
 > Syntax tree:
 > Declare function (return type "int"): funOne

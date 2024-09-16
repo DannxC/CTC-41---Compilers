@@ -41,13 +41,12 @@ typedef enum
   ASSIGN, EQ, NE, LT, LE, GT, GE,
   PLUS, MINUS, TIMES, OVER,
   LPAREN, RPAREN, LBRACE, RBRACE, LBRACKET, RBRACKET,
-  SEMI, COMMA,
+  SEMI, COMMA
 
-  /* comentários */
-  COMMENT  // Adicionado
 } TokenType;
 
 extern FILE* source; /* source code text file */
+extern FILE* redundant_source; /* listing code text file */
 extern FILE* listing; /* listing output text file */
 extern FILE* code; /* code text file for TM simulator */
 
