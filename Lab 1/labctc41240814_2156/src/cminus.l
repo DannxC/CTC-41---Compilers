@@ -14,6 +14,10 @@
 #include "globals.h"
 #include "util.h"
 #include "scan.h"
+#include "parse.h"
+
+#include "parser.h" // Para obter a definição de yylval
+
 /* lexeme of identifier or reserved word */
 char tokenString[MAXTOKENLEN+1];
 %}
@@ -71,8 +75,14 @@ whitespace  [ \t]+
 "["             { return LBRACKET; }
 "]"             { return RBRACKET; }
 
-{identifier}    { return ID; }
-{number}        { return NUM; }
+{identifier}    { 
+                    yylval.name = copyString(yytext);
+                    return ID;
+                }
+{number}        { 
+                    yylval.val = atoi(yytext);
+                    return NUM;
+                }
 
 {whitespace}    { /* Ignora espaços em branco */ }
 {newline}       { lineno++; printLine(); }

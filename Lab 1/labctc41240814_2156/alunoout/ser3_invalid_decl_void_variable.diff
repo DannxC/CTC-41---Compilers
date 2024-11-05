@@ -1,8 +1,4 @@
-17a18,38
-> 
-> Syntax tree:
-> Declare function (return type "void"): main
->     Declare void var: a
+21a22,38
 > 
 > Building Symbol Table...
 > Semantic error at line 3: variable declared void

@@ -1,15 +1,4 @@
-50a51,111
-> 
-> Syntax tree:
-> Declare function (return type "int"): funOne
->     Function call: output
->         Const: 1
-> Declare function (return type "int"): funTwo
->     Function call: output
->         Const: 2
-> Declare function (return type "int"): funThree
->     Function call: output
->         Const: 3
+61a62,111
 > 
 > Building Symbol Table...
 > 

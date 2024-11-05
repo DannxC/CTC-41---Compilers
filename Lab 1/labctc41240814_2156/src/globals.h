@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <ctype.h>
 #include <string.h>
 #include "log.h"
@@ -26,24 +27,26 @@
 /* MAXRESERVED = the number of reserved words */
 #define MAXRESERVED 8
 
-typedef enum 
-{ 
-  /* book-keeping tokens */
-  ENDFILE, ERROR,
+// typedef enum 
+// { 
+//   /* book-keeping tokens */
+//   ENDFILE, ERROR,
 
-  /* reserved words */
-  IF, ELSE, INT, VOID, WHILE, RETURN,
+//   /* reserved words */
+//   IF, ELSE, INT, VOID, WHILE, RETURN,
 
-  /* multicharacter tokens */
-  ID, NUM,
+//   /* multicharacter tokens */
+//   ID, NUM,
 
-  /* special symbols */
-  ASSIGN, EQ, NE, LT, LE, GT, GE,
-  PLUS, MINUS, TIMES, OVER,
-  LPAREN, RPAREN, LBRACE, RBRACE, LBRACKET, RBRACKET,
-  SEMI, COMMA
+//   /* special symbols */
+//   ASSIGN, EQ, NE, LT, LE, GT, GE,
+//   PLUS, MINUS, TIMES, OVER,
+//   LPAREN, RPAREN, LBRACE, RBRACE, LBRACKET, RBRACKET,
+//   SEMI, COMMA
 
-} TokenType;
+// } TokenType;
+
+typedef int TokenType;  // TokenType é redefinido como int para compatibilidade com Bison - lab2
 
 extern FILE* source; /* source code text file */
 extern FILE* redundant_source; /* listing code text file */
@@ -56,9 +59,29 @@ extern int lineno; /* source line number for listing */
 /***********   Syntax tree for parsing ************/
 /**************************************************/
 
-typedef enum {StmtK,ExpK} NodeKind;
-typedef enum {IfK,RepeatK,AssignK,ReadK,WriteK} StmtKind;
-typedef enum {OpK,ConstK,IdK} ExpKind;
+// typedef enum {StmtK,ExpK} NodeKind;
+// typedef enum {IfK,RepeatK,AssignK,ReadK,WriteK} StmtKind;  // modificar pro lab2
+// typedef enum {OpK,ConstK,IdK} ExpKind;
+
+typedef enum {StmtK, ExpK} NodeKind;
+
+typedef enum { 
+    IfK,          // Declaração if-else
+    WhileK,       // Declaração while
+    ReturnK,      // Declaração return
+    VarK,         // Declaração de variável
+    FuncK,        // Declaração de função
+    // CompoundK,    // Bloco composto de declarações
+    ParamK        // Parâmetros de função
+} StmtKind;
+
+typedef enum { 
+    OpK,          // Operador (+, -, *, /, etc.)
+    ConstK,       // Constante numérica
+    IdK,          // Identificador
+    AssignK,      // Expressão de atribuição (=)
+    CallK         // Chamada de função (ativação)
+} ExpKind;
 
 /* ExpType is used for type checking */
 typedef enum {Void,Integer,Boolean} ExpType;
@@ -74,6 +97,7 @@ typedef struct treeNode
      union { TokenType op;
              int val;
              char * name; } attr;
+     bool isArray; /* is this an array? 0 false, 1 true */
      ExpType type; /* for type checking of exps */
    } TreeNode;
 
@@ -111,5 +135,11 @@ extern int TraceCode;
 
 /* Error = TRUE prevents further passes if an error occurs */
 extern int Error; 
+
+/* Bison parser inclusion for tokens - lab2 */
+#ifndef YYPARSER
+#include "parser.h"  // Inclui o arquivo gerado pelo Bison
+#define ENDFILE 0    // Define ENDFILE como 0, equivalente ao token YYEOF do Bison
+#endif
 
 #endif

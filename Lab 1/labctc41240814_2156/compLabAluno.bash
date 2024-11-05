@@ -1,3 +1,3 @@
-cmake .. -DDOPARSE=FALSE
-make 
-
+# compLabAluno.bash
+cmake .. -DDOPARSE=TRUE
+make

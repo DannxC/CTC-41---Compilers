@@ -8,14 +8,13 @@
 #include "globals.h"
 
 /* set NO_PARSE to TRUE to get a scanner-only compiler */
-#define NO_PARSE TRUE
+#define NO_PARSE FALSE    // false lab2
 /* set NO_ANALYZE to TRUE to get a parser-only compiler */
-#define NO_ANALYZE FALSE
-
+#define NO_ANALYZE TRUE    // true lab2
 /* set NO_CODE to TRUE to get a compiler that does not
  * generate code
  */
-#define NO_CODE FALSE
+#define NO_CODE TRUE      // true lab2
 
 #include "util.h"
 #if NO_PARSE
@@ -40,7 +39,7 @@ FILE *redundant_source; // Adicione esta linha
 /* allocate and set tracing flags */
 int EchoSource = TRUE;
 int TraceScan = TRUE;
-int TraceParse = FALSE;
+int TraceParse = TRUE;      // true lab2
 int TraceAnalyze = FALSE;
 int TraceCode = FALSE;
 
@@ -72,14 +71,16 @@ int main( int argc, char * argv[] )
     //// end opening sources ////
     
     listing = stdout; /* send messages from main() to screen */
-    initializePrinter(detailpath, pgm, LER);// init logger in /lib/log.c
+    initializePrinter(detailpath, pgm, LOGALL);// init logger in /lib/log.c
     // for the lexical analysis, you might change LOGALL to LER, to generate only lex and err outputs.
       
   fprintf(listing,"\nTINY COMPILATION: %s\n",pgm);
 #if NO_PARSE
   while (getToken()!=ENDFILE);
+  doneLEXstartSYN(); // lab2
 #else
   syntaxTree = parse();
+  doneLEXstartSYN(); // lab2
   if (TraceParse) {
     fprintf(listing,"\nSyntax tree:\n");
     printTree(syntaxTree);

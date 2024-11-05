@@ -86,3 +86,7 @@ TINY COMPILATION: ../example/missing_key.cm
 	15: ;
 16: 
 	17: EOF
+Syntax error at line 17: syntax error
+Current token: EOF
+
+Syntax tree:

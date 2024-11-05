@@ -15,3 +15,7 @@ TINY COMPILATION: ../example/ser3_invalid_decl_void_variable.cm
 4: }
 	4: }
 	4: EOF
+
+Syntax tree:
+Declare function (return type "void"): main
+    Declare void var: a

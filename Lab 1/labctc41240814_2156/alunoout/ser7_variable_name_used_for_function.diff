@@ -1,16 +1,4 @@
-59a60,94
-> 
-> Syntax tree:
-> Declare function (return type "int"): funOne
->     Function call: output
->         Const: 1
-> Declare function (return type "int"): xyz
->     Declare int var: x
->     Declare int var: y
->     Declare int var: z
-> Declare function (return type "void"): main
->     Declare int var: a
->     Declare int var: xyz
+71a72,94
 > 
 > Building Symbol Table...
 > Semantic error at line 14: 'xyz' was already declared as a function

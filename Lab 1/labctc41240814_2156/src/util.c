@@ -143,8 +143,8 @@ char * copyString(char * s)
 static int indentno = 0;
 
 /* macros to increase/decrease indentation */
-#define INDENT indentno+=2
-#define UNINDENT indentno-=2
+#define INDENT indentno+=4
+#define UNINDENT indentno-=4
 
 /* printSpaces indents by printing spaces */
 static void printSpaces(void)
@@ -156,54 +156,133 @@ static void printSpaces(void)
 /* procedure printTree prints a syntax tree to the 
  * listing file using indentation to indicate subtrees
  */
-void printTree( TreeNode * tree )
-{ int i;
-  INDENT;
-  while (tree != NULL) {
-    printSpaces();
-    if (tree->nodekind==StmtK)
-    { switch (tree->kind.stmt) {
-        case IfK:
-          pc("If\n");
-          break;
-        case RepeatK:
-          pc("Repeat\n");
-          break;
-        case AssignK:
-          pc("Assign to: %s\n",tree->attr.name);
-          break;
-        case ReadK:
-          pc("Read: %s\n",tree->attr.name);
-          break;
-        case WriteK:
-          pc("Write\n");
-          break;
-        default:
-          pce("Unknown ExpNode kind\n");
-          break;
-      }
+void printTree(TreeNode *tree)
+{
+    while (tree != NULL)
+    {
+        printSpaces();
+        if (tree->nodekind == StmtK)
+        {
+            switch (tree->kind.stmt)
+            {
+            case IfK:
+                pc("Conditional selection\n");
+                INDENT;
+                printTree(tree->child[0]);  // Condição
+                printTree(tree->child[1]);  // Statement "then"
+                if (tree->child[2] != NULL)
+                    printTree(tree->child[2]);  // Statement "else"
+                UNINDENT;
+                break;
+            case WhileK:
+                pc("Iteration (loop)\n");
+                INDENT;
+                printTree(tree->child[0]);  // Condição
+                printTree(tree->child[1]);  // Corpo do loop
+                UNINDENT;
+                break;
+            case ReturnK:
+                pc("Return\n");
+                INDENT;
+                if (tree->child[0] != NULL)
+                    printTree(tree->child[0]);  // Expressão de retorno
+                UNINDENT;
+                break;
+            case VarK:
+                if (tree->isArray)
+                {
+                    pc("Declare %s array: %s\n", (tree->type == Integer ? "int" : "void"), tree->attr.name);
+                    INDENT;
+                    if (tree->child[0] != NULL) {
+                        printTree(tree->child[0]);  // Tamanho do array
+                    }
+                    UNINDENT;
+                }
+                else
+                {
+                    pc("Declare %s var: %s\n", (tree->type == Integer ? "int" : "void"), tree->attr.name);
+                }
+                break;
+            case FuncK:
+                pc("Declare function (return type \"%s\"): %s\n", (tree->type == Integer ? "int" : "void"), tree->attr.name);
+                INDENT;
+                printTree(tree->child[0]);  // Parâmetros
+                printTree(tree->child[1]);  // Corpo da função
+                UNINDENT;
+                break;
+            case ParamK:
+                // Ajuste para diferenciar "int array" de "int var" para parâmetros
+                pc("Function param (%s %s): %s\n", 
+                    (tree->type == Integer ? "int" : "void"), 
+                    (tree->isArray ? "array" : "var"), 
+                    tree->attr.name);
+                break;
+            default:
+                pc("Unknown StmtNode kind\n");
+                break;
+            }
+        }
+        else if (tree->nodekind == ExpK)
+        {
+            switch (tree->kind.exp)
+            {
+            case OpK:
+                pc("Op: ");
+                printToken(tree->attr.op, "\0");
+                INDENT;
+                printTree(tree->child[0]);
+                printTree(tree->child[1]);
+                UNINDENT;
+                break;
+            case ConstK:
+                pc("Const: %d\n", tree->attr.val);
+                break;
+            case IdK:
+                pc("Id: %s\n", tree->attr.name);
+                if (tree->isArray && tree->child[0] != NULL)
+                {
+                    INDENT;
+                    printTree(tree->child[0]);  // Índice do array
+                    UNINDENT;
+                }
+                break;
+            case AssignK:
+                if (tree->child[0] != NULL && tree->child[0]->kind.exp == IdK)
+                {
+                    pc("Assign to %s: %s\n", (tree->child[0]->isArray ? "array" : "var"), tree->child[0]->attr.name);
+                    if (tree->child[0]->isArray && tree->child[0]->child[0] != NULL)
+                    {
+                        INDENT;
+                        printTree(tree->child[0]->child[0]);  // Índice do array
+                        UNINDENT;
+                    }
+                }
+                else
+                {
+                    pc("Assign\n");
+                    INDENT;
+                    printTree(tree->child[0]);  // Variável
+                    UNINDENT;
+                }
+                INDENT;
+                printTree(tree->child[1]);  // Expressão atribuída
+                UNINDENT;
+                break;
+            case CallK:
+                pc("Function call: %s\n", tree->attr.name);
+                INDENT;
+                printTree(tree->child[0]);  // Argumentos da função
+                UNINDENT;
+                break;
+            default:
+                pc("Unknown ExpNode kind\n");
+                break;
+            }
+        }
+        else
+        {
+            pc("Unknown node kind\n");
+        }
+        tree = tree->sibling;
     }
-    else if (tree->nodekind==ExpK)
-    { switch (tree->kind.exp) {
-        case OpK:
-          pc("Op: ");
-          printToken(tree->attr.op,"\0");
-          break;
-        case ConstK:
-          pc("Const: %d\n",tree->attr.val);
-          break;
-        case IdK:
-          pc("Id: %s\n",tree->attr.name);
-          break;
-        default:
-          pce("Unknown ExpNode kind\n");
-          break;
-      }
-    }
-    else pce("Unknown node kind\n");
-    for (i=0;i<MAXCHILDREN;i++)
-         printTree(tree->child[i]);
-    tree = tree->sibling;
-  }
-  UNINDENT;
 }

@@ -1,13 +1,4 @@
-41a42,69
-> 
-> Syntax tree:
-> Declare function (return type "void"): exemplo
->     Function call: output
->         Const: 3
-> Declare function (return type "void"): main
->     Declare int var: a
->     Assign to var: a
->         Function call: exemplo
+50a51,69
 > 
 > Building Symbol Table...
 > 

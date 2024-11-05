@@ -84,3 +84,5 @@
 	15: ;
 16: 
 	17: EOF
+Syntax error at line 17: syntax error
+Current token: EOF
