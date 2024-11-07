@@ -10,7 +10,7 @@
 /* set NO_PARSE to TRUE to get a scanner-only compiler */
 #define NO_PARSE FALSE    // false lab2
 /* set NO_ANALYZE to TRUE to get a parser-only compiler */
-#define NO_ANALYZE TRUE    // true lab2
+#define NO_ANALYZE FALSE    // true lab2
 /* set NO_CODE to TRUE to get a compiler that does not
  * generate code
  */
@@ -86,6 +86,7 @@ int main( int argc, char * argv[] )
     printTree(syntaxTree);
   }
 #if !NO_ANALYZE
+  doneSYNstartTAB();// SyntaxTree analysis ended. Now, print on TAB output file
   if (! Error)
   { if (TraceAnalyze) fprintf(listing,"\nBuilding Symbol Table...\n");
     buildSymtab(syntaxTree);
@@ -94,26 +95,16 @@ int main( int argc, char * argv[] )
     if (TraceAnalyze) fprintf(listing,"\nType Checking Finished\n");
   }
 #if !NO_CODE
+  doneTABstartGEN();// Symbol Table is done. Now, print on GEN file (final compiled code output)
   if (! Error)
-  { char * codefile;
-    int fnlen = strcspn(pgm,".");
-    codefile = (char *) calloc(fnlen+4, sizeof(char));
-    strncpy(codefile,pgm,fnlen);
-    strcat(codefile,".tm");
-    code = fopen(codefile,"w");
-    if (code == NULL)
-    { printf("Unable to open %s\n",codefile);
-      exit(1);
-    }
-    codeGen(syntaxTree,codefile);
-    fclose(code);
+  { 
+    codeGen(syntaxTree);
   }
 #endif
 #endif
 #endif
   fclose(source);
-  fclose(redundant_source);
-
+  //fclose(redundant_source);
+  closePrinter();
   return 0;
 }
-

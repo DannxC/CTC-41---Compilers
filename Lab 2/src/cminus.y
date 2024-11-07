@@ -12,6 +12,8 @@
 #include "scan.h"
 #include "parse.h"
 
+//#define YYSTYPE TreeNode *
+
 static char * savedName; /* for use in assignments */
 static int savedLineNo;  /* ditto */
 static TreeNode * savedTree; /* stores syntax tree for later return */
@@ -19,6 +21,7 @@ static int yylex(void);
 int yyerror(char *);
 
 %}
+
 
 %union {
     int val;
