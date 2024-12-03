@@ -210,6 +210,10 @@ void printTree(TreeNode *tree)
                 printTree(tree->child[1]);  // Corpo da função
                 UNINDENT;
                 break;
+            case CompoundK:
+                printTree(tree->child[0]);  // Declarações locais
+                printTree(tree->child[1]);  // Lista de statements
+                break;
             case ParamK:
                 // Ajuste para diferenciar "int array" de "int var" para parâmetros
                 pc("Function param (%s %s): %s\n", 

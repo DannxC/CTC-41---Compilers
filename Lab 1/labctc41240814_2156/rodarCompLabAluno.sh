@@ -5,6 +5,7 @@ sudo chmod -R ugo+rw *
 sudo chmod -R ugo+rw ../alunoout
 make
 make lexdiff
+make ddiff
 
 # quando quiser comparar os detalhes descomente a linha abaixo
 meld ../alunodetail/ ../detail/

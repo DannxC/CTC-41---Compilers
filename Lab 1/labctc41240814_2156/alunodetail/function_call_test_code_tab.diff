@@ -1,0 +1,10 @@
+5a6
+> a              main      var      int        10 11 
+11,12d11
+< a              f         var      int         1  2 
+< b              f         var      int         1  2 
+14d12
+< a              main      var      int        10 11 
+16a15,16
+> a              f         var      int         1  2 
+> b              f         var      int         1  2 

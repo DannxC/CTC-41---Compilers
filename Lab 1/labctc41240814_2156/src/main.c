@@ -10,11 +10,11 @@
 /* set NO_PARSE to TRUE to get a scanner-only compiler */
 #define NO_PARSE FALSE    // false lab2
 /* set NO_ANALYZE to TRUE to get a parser-only compiler */
-#define NO_ANALYZE FALSE    // true lab2
+#define NO_ANALYZE FALSE  // true lab2, false lab3
 /* set NO_CODE to TRUE to get a compiler that does not
  * generate code
  */
-#define NO_CODE TRUE      // true lab2
+#define NO_CODE TRUE      // true lab2 e lab3
 
 #include "util.h"
 #if NO_PARSE
@@ -40,7 +40,7 @@ FILE *redundant_source; // Adicione esta linha
 int EchoSource = TRUE;
 int TraceScan = TRUE;
 int TraceParse = TRUE;      // true lab2
-int TraceAnalyze = FALSE;
+int TraceAnalyze = TRUE;    // true lab3
 int TraceCode = FALSE;
 
 int Error = FALSE;

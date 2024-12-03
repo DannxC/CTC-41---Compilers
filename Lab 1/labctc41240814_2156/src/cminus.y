@@ -94,6 +94,7 @@ var_declaration
             $$->attr.name = $2;
             $$->type = $1;
             $$->isArray = FALSE;
+            $$->lineno = lineno;
         }
     | type_specifier ID LBRACKET NUM RBRACKET SEMI
         { 
@@ -103,6 +104,9 @@ var_declaration
             $$->isArray = TRUE;
             $$->child[0] = newExpNode(ConstK);
             $$->child[0]->attr.val = $4;
+            $$->lineno = lineno;
+            /* Definir o pai do nó filho */
+            $$->child[0]->parent = $$;
         }
     ;
 
@@ -114,13 +118,17 @@ type_specifier
     ;
 
 fun_declaration
-    : type_specifier ID LPAREN params RPAREN compound_stmt
+    : type_specifier ID {savedLineNo = lineno;} LPAREN params RPAREN compound_stmt
         {
             $$ = newStmtNode(FuncK);
             $$->attr.name = $2;
             $$->type = $1;
-            $$->child[0] = $4;    /* parâmetros */
-            $$->child[1] = $6;    /* corpo da função */
+            $$->child[0] = $5;    /* parâmetros */
+            $$->child[1] = $7;    /* corpo da função */
+            $$->lineno = savedLineNo;
+            /* Atribuir o pai aos filhos */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
+            if ($$->child[1] != NULL) $$->child[1]->parent = $$;
         }
     ;
 
@@ -155,6 +163,7 @@ param
             $$->attr.name = $2;
             $$->type = $1;
             $$->isArray = FALSE;
+            $$->lineno = lineno;
         }
     | type_specifier ID LBRACKET RBRACKET
         { 
@@ -162,23 +171,20 @@ param
             $$->attr.name = $2;
             $$->type = $1;
             $$->isArray = TRUE;
+            $$->lineno = lineno;
         }
     ;
 
 compound_stmt
     : LBRACE local_declarations statement_list RBRACE
         {
-            if ($2 != NULL) {
-                TreeNode* t = $2;
-                while (t->sibling != NULL)
-                    t = t->sibling;
-                if ($3 != NULL)
-                    t->sibling = $3;
-                $$ = $2;
-            }
-            else {
-                $$ = $3;
-            }
+            $$ = newStmtNode(CompoundK);
+            $$->child[0] = $2;   /* local_declarations */
+            $$->child[1] = $3;   /* statement_list */
+            $$->lineno = lineno;
+            /* Atribuir o pai aos filhos */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
+            if ($$->child[1] != NULL) $$->child[1]->parent = $$;
         }
     ;
 
@@ -194,6 +200,8 @@ local_declarations
             } else {
                 $$ = $2;
             }
+            /* Definir o pai */
+            $2->parent = NULL; // Será atribuído no nó composto
         }
     | /* vazio */
         { $$ = NULL; }
@@ -211,6 +219,8 @@ statement_list
             } else {
                 $$ = $2;
             }
+            /* Definir o pai */
+            $2->parent = NULL; // Será atribuído no nó composto
         }
     | /* vazio */
         { $$ = NULL; }
@@ -243,6 +253,10 @@ selection_stmt
             $$->child[0] = $3;   /* condição */
             $$->child[1] = $5;   /* statement */
             $$->child[2] = NULL; /* sem else */
+            $$->lineno = lineno;
+            /* Atribuir o pai aos filhos */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
+            if ($$->child[1] != NULL) $$->child[1]->parent = $$;
         }
     | IF LPAREN expression RPAREN statement ELSE statement
         {
@@ -250,6 +264,11 @@ selection_stmt
             $$->child[0] = $3;   /* condição */
             $$->child[1] = $5;   /* statement if */
             $$->child[2] = $7;   /* statement else */
+            $$->lineno = lineno;
+            /* Atribuir o pai aos filhos */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
+            if ($$->child[1] != NULL) $$->child[1]->parent = $$;
+            if ($$->child[2] != NULL) $$->child[2]->parent = $$;
         }
     ;
 
@@ -259,6 +278,10 @@ iteration_stmt
             $$ = newStmtNode(WhileK);
             $$->child[0] = $3;   /* condição */
             $$->child[1] = $5;   /* corpo do loop */
+            $$->lineno = lineno;
+            /* Atribuir o pai aos filhos */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
+            if ($$->child[1] != NULL) $$->child[1]->parent = $$;
         }
     ;
 
@@ -267,11 +290,15 @@ return_stmt
         {
             $$ = newStmtNode(ReturnK);
             $$->child[0] = NULL; /* retorno vazio */
+            $$->lineno = lineno;
         }
     | RETURN expression SEMI
         {
             $$ = newStmtNode(ReturnK);
             $$->child[0] = $2;   /* expressão de retorno */
+            $$->lineno = lineno;
+            /* Atribuir o pai ao filho */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
         }
     ;
 
@@ -281,6 +308,10 @@ expression
             $$ = newExpNode(AssignK);
             $$->child[0] = $1;   /* variável */
             $$->child[1] = $3;   /* expressão */
+            $$->lineno = lineno;
+            /* Atribuir o pai aos filhos */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
+            if ($$->child[1] != NULL) $$->child[1]->parent = $$;
         }
     | simple_expression
         { $$ = $1; }
@@ -292,6 +323,7 @@ var
             $$ = newExpNode(IdK);
             $$->attr.name = $1;
             $$->isArray = FALSE;
+            $$->lineno = lineno;
         }
     | ID LBRACKET expression RBRACKET
         {
@@ -299,6 +331,9 @@ var
             $$->attr.name = $1;
             $$->isArray = TRUE;
             $$->child[0] = $3;   /* índice do array */
+            $$->lineno = lineno;
+            /* Atribuir o pai ao filho */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
         }
     ;
 
@@ -309,6 +344,10 @@ simple_expression
             $$->attr.op = $2;
             $$->child[0] = $1;
             $$->child[1] = $3;
+            $$->lineno = lineno;
+            /* Atribuir o pai aos filhos */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
+            if ($$->child[1] != NULL) $$->child[1]->parent = $$;
         }
     | additive_expression
         { $$ = $1; }
@@ -336,6 +375,10 @@ additive_expression
             $$->attr.op = $2;
             $$->child[0] = $1;
             $$->child[1] = $3;
+            $$->lineno = lineno;
+            /* Atribuir o pai aos filhos */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
+            if ($$->child[1] != NULL) $$->child[1]->parent = $$;
         }
     | term
         { $$ = $1; }
@@ -355,6 +398,10 @@ term
             $$->attr.op = $2;
             $$->child[0] = $1;
             $$->child[1] = $3;
+            $$->lineno = lineno;
+            /* Atribuir o pai aos filhos */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
+            if ($$->child[1] != NULL) $$->child[1]->parent = $$;
         }
     | factor
         { $$ = $1; }
@@ -378,6 +425,7 @@ factor
         {
             $$ = newExpNode(ConstK);
             $$->attr.val = $1;
+            $$->lineno = lineno;
         }
     ;
 
@@ -387,6 +435,9 @@ call
             $$ = newExpNode(CallK);
             $$->attr.name = $1;
             $$->child[0] = $3;   /* argumentos */
+            $$->lineno = lineno;
+            /* Atribuir o pai ao filho */
+            if ($$->child[0] != NULL) $$->child[0]->parent = $$;
         }
     ;
 
@@ -409,6 +460,8 @@ arg_list
             } else {
                 $$ = $3;
             }
+            /* Definir o pai */
+            $3->parent = NULL; // Será atribuído na chamada da função
         }
     | expression
         { $$ = $1; }
@@ -425,7 +478,7 @@ int yyerror(char * message)
 }
 
 /* yylex calls getToken to make Yacc/Bison output
- * compatible with ealier versions of the TINY scanner
+ * compatible with earlier versions of the TINY scanner
  */
 static int yylex(void)
 { return getToken(); }

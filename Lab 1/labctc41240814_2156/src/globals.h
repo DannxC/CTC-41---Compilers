@@ -71,7 +71,7 @@ typedef enum {
     ReturnK,      // Declaração return
     VarK,         // Declaração de variável
     FuncK,        // Declaração de função
-    // CompoundK,    // Bloco composto de declarações
+    CompoundK,    // Bloco composto de declarações
     ParamK        // Parâmetros de função
 } StmtKind;
 
@@ -84,22 +84,29 @@ typedef enum {
 } ExpKind;
 
 /* ExpType is used for type checking */
-typedef enum {Void,Integer,Boolean} ExpType;
+typedef enum {Void, Integer, Boolean} ExpType;
 
 #define MAXCHILDREN 3
 
 typedef struct treeNode
-   { struct treeNode * child[MAXCHILDREN];
-     struct treeNode * sibling;
-     int lineno;
-     NodeKind nodekind;
-     union { StmtKind stmt; ExpKind exp;} kind;
-     union { TokenType op;
-             int val;
-             char * name; } attr;
-     bool isArray; /* is this an array? 0 false, 1 true */
-     ExpType type; /* for type checking of exps */
-   } TreeNode;
+  { 
+    struct treeNode *child[MAXCHILDREN];
+    struct treeNode *sibling;
+    struct treeNode *parent; // Added for lab3
+    int lineno;
+    NodeKind nodekind;
+    union { 
+      StmtKind stmt; 
+      ExpKind exp;
+    } kind;
+    union { 
+      TokenType op;
+      int val;
+      char * name; 
+    } attr;
+    bool isArray; /* is this an array? 0 false, 1 true */
+    ExpType type; /* for type checking of exps */
+  } TreeNode;
 
 /**************************************************/
 /***********   Flags for tracing       ************/

@@ -1,0 +1,14 @@
+79a80
+> a              main      var      int        13 
+80a82
+> y              xyz       var      int         7 
+85,86d86
+< x              xyz       var      int         6 
+< y              xyz       var      int         7 
+88c88
+< a              main      var      int        13 
+---
+> x              xyz       var      int         6 
+92a93,94
+> 
+> Checking for main...

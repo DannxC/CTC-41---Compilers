@@ -1,0 +1,17 @@
+6a7
+> r              gdc       var      int         6  9 10 
+7a9
+> u              gdc       var      int         3  9 10 
+8a11,12
+> y              main      var      int        18 20 21 
+> x              gdc       var      int         5  8 12 
+10,11d13
+< r              gdc       var      int         6  9 10 
+< u              gdc       var      int         3  9 10 
+13,14d14
+< x              gdc       var      int         5  8 12 
+< y              gdc       var      int         7  8 12 
+16c16
+< y              main      var      int        18 20 21 
+---
+> y              gdc       var      int         7  8 12 

@@ -1,0 +1,179 @@
+
+TINY COMPILATION: ../example/block2.cm
+1: /* Variaveis em blocos aninhados */
+2: void teste (int b, int a) {
+	2: reserved word: void
+	2: ID, name= teste
+	2: (
+	2: reserved word: int
+	2: ID, name= b
+	2: ,
+	2: reserved word: int
+	2: ID, name= a
+	2: )
+	2: {
+3:   output(a);
+	3: ID, name= output
+	3: (
+	3: ID, name= a
+	3: )
+	3: ;
+4:   output(b);
+	4: ID, name= output
+	4: (
+	4: ID, name= b
+	4: )
+	4: ;
+5:   { int a;
+	5: {
+	5: reserved word: int
+	5: ID, name= a
+	5: ;
+6:     int b;
+	6: reserved word: int
+	6: ID, name= b
+	6: ;
+7:     a = 3;
+	7: ID, name= a
+	7: =
+	7: NUM, val= 3
+	7: ;
+8:     b = 4;
+	8: ID, name= b
+	8: =
+	8: NUM, val= 4
+	8: ;
+9:     output(a);
+	9: ID, name= output
+	9: (
+	9: ID, name= a
+	9: )
+	9: ;
+10:     output(b);
+	10: ID, name= output
+	10: (
+	10: ID, name= b
+	10: )
+	10: ;
+11:   }
+	11: }
+12:   a = 5;
+	12: ID, name= a
+	12: =
+	12: NUM, val= 5
+	12: ;
+13:   output(a);
+	13: ID, name= output
+	13: (
+	13: ID, name= a
+	13: )
+	13: ;
+14: }
+	14: }
+15: 
+16: void main(void) {
+	16: reserved word: void
+	16: ID, name= main
+	16: (
+	16: reserved word: void
+	16: )
+	16: {
+17:   int a;
+	17: reserved word: int
+	17: ID, name= a
+	17: ;
+18:   int b;
+	18: reserved word: int
+	18: ID, name= b
+	18: ;
+19:   a = 1;
+	19: ID, name= a
+	19: =
+	19: NUM, val= 1
+	19: ;
+20:   b = 2;
+	20: ID, name= b
+	20: =
+	20: NUM, val= 2
+	20: ;
+21:   teste(a,b);
+	21: ID, name= teste
+	21: (
+	21: ID, name= a
+	21: ,
+	21: ID, name= b
+	21: )
+	21: ;
+22:   output(a);
+	22: ID, name= output
+	22: (
+	22: ID, name= a
+	22: )
+	22: ;
+23:   output(b);
+	23: ID, name= output
+	23: (
+	23: ID, name= b
+	23: )
+	23: ;
+24: }
+	24: }
+	24: EOF
+
+Syntax tree:
+Declare function (return type "void"): teste
+    Function param (int var): b
+    Function param (int var): a
+        Function call: output
+        Id: a
+    Function call: output
+        Id: b
+        Declare int var: a
+    Declare int var: b
+    Assign to var: a
+        Const: 3
+    Assign to var: b
+        Const: 4
+    Function call: output
+        Id: a
+    Function call: output
+        Id: b
+    Assign to var: a
+        Const: 5
+    Function call: output
+        Id: a
+Declare function (return type "void"): main
+        Declare int var: a
+    Declare int var: b
+    Assign to var: a
+        Const: 1
+    Assign to var: b
+        Const: 2
+    Function call: teste
+        Id: a
+        Id: b
+    Function call: output
+        Id: a
+    Function call: output
+        Id: b
+
+Building Symbol Table...
+
+Symbol table:
+
+Variable Name  Scope     ID Type  Data Type  Line Numbers
+-------------  --------  -------  ---------  -------------------------
+main                     fun      void       16 
+input                    fun      int        
+output                   fun      void        3  4  9 10 13 22 23 
+teste                    fun      void        2 21 
+a              teste     var      int         2  3 12 13 
+b              teste     var      int         2  4 
+a              compound1 var      int         5  7  9 
+b              compound1 var      int         6  8 10 
+a              main      var      int        17 19 21 22 
+b              main      var      int        18 20 21 23 
+
+Checking Types...
+
+Type Checking Finished
