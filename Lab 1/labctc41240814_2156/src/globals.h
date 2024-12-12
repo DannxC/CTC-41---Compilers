@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <string.h>
+
 #include "log.h"
 
 #ifndef FALSE
@@ -23,6 +24,8 @@
 #ifndef TRUE
 #define TRUE 1
 #endif
+
+#define MAX_MEM 1023
 
 /* MAXRESERVED = the number of reserved words */
 #define MAXRESERVED 8
@@ -86,6 +89,38 @@ typedef enum {
 /* ExpType is used for type checking */
 typedef enum {Void, Integer, Boolean} ExpType;
 
+/* SIZE is the size of the hash table */
+#define SIZE 211
+
+  /* Structure for line numbers list */
+typedef struct LineListRec
+{
+    int lineno;
+    struct LineListRec *next;
+} * LineList;
+
+/* Structure for symbol table bucket */
+typedef struct BucketListRec
+{
+    char *name;
+    LineList lines;
+    int memloc;         /* Memory location */
+    ExpType type;       /* Data type */
+    StmtKind kind;      /* Variable, function, parameter */
+    bool isArray;       /* Is this an array? */
+    char *scope;        /* Scope name */
+    struct BucketListRec *next;
+} * BucketList;
+
+/* Structure for scope */
+typedef struct ScopeRec
+{
+    char *funcName;               /* Function or scope name */
+    struct ScopeRec *parent;      /* Parent scope */
+    BucketList hashTable[SIZE];   /* Hash table for symbols */
+    struct ScopeRec *next;        /* Next scope in the list */
+} * Scope;
+
 #define MAXCHILDREN 3
 
 typedef struct treeNode
@@ -106,6 +141,7 @@ typedef struct treeNode
     } attr;
     bool isArray; /* is this an array? 0 false, 1 true */
     ExpType type; /* for type checking of exps */
+    Scope sc; // Added for lab3
   } TreeNode;
 
 /**************************************************/

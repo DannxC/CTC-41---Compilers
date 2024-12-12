@@ -14,7 +14,7 @@
 /* set NO_CODE to TRUE to get a compiler that does not
  * generate code
  */
-#define NO_CODE TRUE      // true lab2 e lab3
+#define NO_CODE FALSE      // true lab2 e lab3 ; false lab4
 
 #include "util.h"
 #if NO_PARSE
@@ -41,7 +41,7 @@ int EchoSource = TRUE;
 int TraceScan = TRUE;
 int TraceParse = TRUE;      // true lab2
 int TraceAnalyze = TRUE;    // true lab3
-int TraceCode = FALSE;
+int TraceCode = TRUE;       // true lab4
 
 int Error = FALSE;
 
