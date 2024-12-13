@@ -1,0 +1,14 @@
+96a97
+> a              funOne    var      int         2  5 
+98a100
+> y              main      var      int        10 11 
+101,102d102
+< a              funOne    var      int         2  5 
+< b              funOne    var      int         3  4  5 
+104c104
+< y              main      var      int        10 11 
+---
+> b              funOne    var      int         3  4  5 
+108a109,110
+> 
+> Checking for main...

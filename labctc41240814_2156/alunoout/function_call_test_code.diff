@@ -1,0 +1,13 @@
+103a104
+> a              main      var      int        10 11 
+109,110d109
+< a              f         var      int         1  2 
+< b              f         var      int         1  2 
+112d110
+< a              main      var      int        10 11 
+114a113,114
+> a              f         var      int         1  2 
+> b              f         var      int         1  2 
+118a119,120
+> 
+> Checking for main...

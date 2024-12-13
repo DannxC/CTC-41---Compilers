@@ -1,0 +1,11 @@
+130a131
+> u              gdc       var      int         3  5  6 
+131a133
+> y              main      var      int        12 14 15 
+133d134
+< u              gdc       var      int         3  5  6 
+136d136
+< y              main      var      int        12 14 15 
+140a141,142
+> 
+> Checking for main...

@@ -1,0 +1,11 @@
+214a215
+> a              main      var      int         2  3  6  7 11 12 15 21 
+218d218
+< a              main      var      int         2  3  6  7 11 12 15 21 
+220d219
+< i              main      var      int         2 18 20 22 
+221a221
+> i              main      var      int         2 18 20 22 
+225a226,227
+> 
+> Checking for main...

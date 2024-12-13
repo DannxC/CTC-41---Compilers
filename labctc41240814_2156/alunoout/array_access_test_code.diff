@@ -1,0 +1,11 @@
+143a144
+> a              main      array    int         2 11 
+144a146
+> c              main      array    int         2  7 11 
+147d148
+< a              main      array    int         2 11 
+149d149
+< c              main      array    int         2  7 11 
+154a155,156
+> 
+> Checking for main...

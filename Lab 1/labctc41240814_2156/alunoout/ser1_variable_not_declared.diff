@@ -1,7 +1,0 @@
-49d48
-< Semantic error: undefined reference to 'main'
-51a51,53
-> 
-> Checking for main...
-> Semantic error: undefined reference to 'main'
-\ No newline at end of file
